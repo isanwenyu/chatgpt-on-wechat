@@ -105,7 +105,22 @@ available_setting = {
     "use_linkai": False,
     "linkai_api_key": "",
     "linkai_app_code": "",
-    "password": "" #管理员默认密码
+    #指令插件
+    "password": "", #管理员默认密码
+    #工具插件
+    "no_default": False, #用于配置默认加载4个工具的行为，如果为true则仅使用tools列表工具，不加载默认工具
+    "top_k_results": 3, #控制所有有关搜索的工具返回条目数，数字越高则参考信息越多，但无用信息可能干扰判断，该值一般为2
+    "news_api_key": "", #从全球 80,000 多个信息源中获取当前和历史新闻文章
+    "bing_subscription_key": "", #bing搜索引擎
+    "google_api_key": "", #google搜索引擎
+    "google_cse_id": "", #google搜索引擎
+    "searx_search_host": "", #一个私有化的搜索引擎工具
+    "wolfram_alpha_appid": "", #知识搜索引擎、科学问答系统，常用于专业学科计算
+    "morning_news_api_key": "", #每日60秒早报，每天凌晨一点更新，本工具使用了[alapi-每日60秒早报]
+    "think_depth": 3, #选填，默认为3，控制LLM-OS的最大调用工具次数，过大不一定能提高回复质量
+    "morning_news_use_llm": False, #是否使用LLM润色结果，默认false（可能会慢）
+    "cuda_device": "cpu", # for visual_dl tool
+    "arxiv_summary": True, #是否使用总结工具，默认true, 当为false时会直接返回论文的标题、作者、发布时间、摘要、分类、备注、pdf链接等内容
 }
 
 
