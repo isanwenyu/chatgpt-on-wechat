@@ -182,7 +182,7 @@ class Godcmd(Plugin):
         config_path = os.path.join(curdir, "config.json")
         gconf = None
         if not os.path.exists(config_path):
-            gconf = {"password": "", "admin_users": []}
+            gconf = {"password": conf().get("password", ""), "admin_users": []}
             with open(config_path, "w") as f:
                 json.dump(gconf, f, indent=4)
         else:
