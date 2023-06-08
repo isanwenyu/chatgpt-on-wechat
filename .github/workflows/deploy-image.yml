@@ -13,6 +13,8 @@ on:
   push:
     branches: ['master']
   create:
+  # 手动触发同步
+  workflow_dispatch:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
