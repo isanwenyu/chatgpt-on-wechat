@@ -121,7 +121,7 @@ class Tool(Plugin):
     def _read_json(self) -> dict:
         curdir = os.path.dirname(__file__)
         config_path = os.path.join(curdir, "config.json")
-        tool_config = {"tools": conf().get("tools", []), "kwargs": {}}
+        tool_config = {"tools": conf().get("tools", []), "kwargs": conf().get("tool_kwargs", {})}
         if not os.path.exists(config_path):
             return tool_config
         else:
@@ -134,7 +134,7 @@ class Tool(Plugin):
         request_timeout = kwargs.get("request_timeout")
 
         return {
-            "debug": kwargs.get("debug", conf().get("debug", False)),
+            "debug": kwargs.get("debug", False),
             "openai_api_key": conf().get("open_ai_api_key", ""),
             "open_ai_api_base": conf().get("open_ai_api_base", "https://api.openai.com/v1"),
             "deployment_id": conf().get("azure_deployment_id", ""),
@@ -142,26 +142,26 @@ class Tool(Plugin):
             "request_timeout": request_timeout if request_timeout else conf().get("request_timeout", 120),
             # note: 目前tool暂未对其他模型测试，但这里仍对配置来源做了优先级区分，一般插件配置可覆盖全局配置
             "model_name": tool_model_name if tool_model_name else conf().get("model", "gpt-3.5-turbo"),
-            "no_default": kwargs.get("no_default", conf().get("no_default", False)),
-            "top_k_results": kwargs.get("top_k_results", conf().get("top_k_results", 3)),
+            "no_default": kwargs.get("no_default", False),
+            "top_k_results": kwargs.get("top_k_results", 3),
             # for news tool
-            "news_api_key": kwargs.get("news_api_key", conf().get("news_api_key", "")),
+            "news_api_key": kwargs.get("news_api_key", ""),
             # for bing-search tool
-            "bing_subscription_key": kwargs.get("bing_subscription_key", conf().get("bing_subscription_key", "")),
+            "bing_subscription_key": kwargs.get("bing_subscription_key", ""),
             # for google-search tool
-            "google_api_key": kwargs.get("google_api_key", conf().get("google_api_key", "")),
-            "google_cse_id": kwargs.get("google_cse_id", conf().get("google_cse_id", "")),
+            "google_api_key": kwargs.get("google_api_key", ""),
+            "google_cse_id": kwargs.get("google_cse_id", ""),
             # for searxng-search tool
-            "searx_search_host": kwargs.get("searx_search_host", conf().get("searx_search_host", "")),
+            "searx_search_host": kwargs.get("searx_search_host", ""),
             # for wolfram-alpha tool
-            "wolfram_alpha_appid": kwargs.get("wolfram_alpha_appid", conf().get("wolfram_alpha_appid", "")),
+            "wolfram_alpha_appid": kwargs.get("wolfram_alpha_appid", ""),
             # for morning-news tool
-            "morning_news_api_key": kwargs.get("morning_news_api_key", conf().get("morning_news_api_key", "")),
+            "morning_news_api_key": kwargs.get("morning_news_api_key", ""),
             # for visual_dl tool
-            "cuda_device": kwargs.get("cuda_device", conf().get("cuda_device", "cpu")),
-            "think_depth": kwargs.get("think_depth", conf().get("think_depth", 3)),
-            "arxiv_summary": kwargs.get("arxiv_summary", conf().get("arxiv_summary", True)),
-            "morning_news_use_llm": kwargs.get("morning_news_use_llm",conf().get("morning_news_use_llm", False)),
+            "cuda_device": kwargs.get("cuda_device", "cpu"),
+            "think_depth": kwargs.get("think_depth", 3),
+            "arxiv_summary": kwargs.get("arxiv_summary", True),
+            "morning_news_use_llm": kwargs.get("morning_news_use_llm", False),
         }
 
     def _filter_tool_list(self, tool_list: list):
