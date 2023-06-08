@@ -121,7 +121,7 @@ class Tool(Plugin):
     def _read_json(self) -> dict:
         curdir = os.path.dirname(__file__)
         config_path = os.path.join(curdir, "config.json")
-        tool_config = {"tools": conf().get("tools", []), "kwargs": conf().get("tool_kwargs", {})}
+        tool_config = {"tools": json.loads(conf().get("tools", "[]")), "kwargs": json.loads(conf().get("tool_kwargs", "{}"))}
         if not os.path.exists(config_path):
             return tool_config
         else:
