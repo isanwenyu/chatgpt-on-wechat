@@ -191,7 +191,17 @@ def load_config():
         if name in available_setting:
             logger.info("[INIT] override config by environ args: {}={}".format(name, value))
             try:
-                config[name] = json.loads(value)
+                #判断系统环境变量是否是json字符串
+                if '{' in value:
+                    json_dict = json.loads(value)
+                    for key, value in json_dict.items():
+                        if value == "true":
+                            json_dict[key] = True
+                        elif value == "false":
+                            json_dict[key] = False
+                    config[name] = json_dict
+                else:
+                    config[name] =  eval(value)
             except:
                 if value == "false":
                     config[name] = False
