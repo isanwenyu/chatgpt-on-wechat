@@ -99,6 +99,14 @@ def qrCallback(uuid, status, qrcode):
         qr.print_ascii(invert=True)
 
 
+# 退出回调
+def exitCallback(userName):
+    logger.debug("exitCallback: {}".format(userName))
+    #退出后重新拉起登录
+    if conf().get("logout_restart") == True:
+        WechatChannel().startup()
+     
+
 @singleton
 class WechatChannel(ChatChannel):
     NOT_SUPPORT_REPLYTYPE = []
@@ -117,6 +125,7 @@ class WechatChannel(ChatChannel):
             hotReload=hotReload,
             statusStorageDir=status_path,
             qrCallback=qrCallback,
+            exitCallback=exitCallback,
         )
         self.user_id = itchat.instance.storageClass.userName
         self.name = itchat.instance.storageClass.nickName

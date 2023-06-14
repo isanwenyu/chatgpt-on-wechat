@@ -111,6 +111,7 @@ available_setting = {
     "tools":[], # 填入你想用到的额外工具名
     "tool_kwargs": {}, #工具执行时的配置，一般在这里存放api-key，或环境配置
     "skip_reference": True,  # 是否允跳过引用消息
+    "logout_restart": True,  # 退出后自动重新登录
 
 }
 
