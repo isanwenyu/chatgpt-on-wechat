@@ -20,6 +20,7 @@ from common.expired_dict import ExpiredDict
 from common.log import logger
 from common.singleton import singleton
 from common.time_check import time_checker
+from common.dingtalk import send_markdown_msg
 from config import conf, get_appdata_dir
 from lib import itchat
 from lib.itchat.content import *
@@ -98,14 +99,24 @@ def qrCallback(uuid, status, qrcode):
         qr.make(fit=True)
         qr.print_ascii(invert=True)
 
+        #发送登录qrcode url给钉钉机器人
+        try:
+            send_markdown_msg(f'![{qr_api4}]({qr_api4})')
+        except Exception as e:
+            pass
+
 
 # 退出回调
 def exitCallback(userName):
     logger.debug("exitCallback: {}".format(userName))
-    #退出后重新拉起登录
-    if conf().get("logout_restart") == True:
-        WechatChannel().startup()
-     
+
+    try:
+        send_markdown_msg(f'[{userName}] LOG OUT!')
+        #退出后重新拉起登录
+        if conf().get("logout_restart") == True:
+            WechatChannel().startup()
+    except Exception as e:
+        pass
 
 @singleton
 class WechatChannel(ChatChannel):

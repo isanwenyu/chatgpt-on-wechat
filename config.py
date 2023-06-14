@@ -112,6 +112,8 @@ available_setting = {
     "tool_kwargs": {}, #工具执行时的配置，一般在这里存放api-key，或环境配置
     "skip_reference": True,  # 是否允跳过引用消息
     "logout_restart": True,  # 退出后自动重新登录
+    "ding_token": '' ,  # 钉钉机器人token,用于接收退出消息和登录qrcode地址
+    "ding_title": '' ,  # 钉钉消息标题,用于触发消息发送
 
 }
 
