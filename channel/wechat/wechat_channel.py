@@ -118,6 +118,14 @@ def exitCallback(userName):
     except Exception as e:
         pass
 
+# 登录成功回调
+def loginCallback(userName):
+    logger.debug("loginCallback: {}".format(userName))
+    try:
+        send_markdown_msg(f'[{userName}] LOGIN SUCCESS!')
+    except Exception as e:
+        pass
+
 @singleton
 class WechatChannel(ChatChannel):
     NOT_SUPPORT_REPLYTYPE = []
@@ -136,6 +144,7 @@ class WechatChannel(ChatChannel):
             hotReload=hotReload,
             statusStorageDir=status_path,
             qrCallback=qrCallback,
+            loginCallback=loginCallback,
             exitCallback=exitCallback,
         )
         self.user_id = itchat.instance.storageClass.userName
