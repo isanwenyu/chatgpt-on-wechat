@@ -107,7 +107,7 @@ def qrCallback(uuid, status, qrcode):
 
 
 # 退出回调
-def exitCallback(userName):
+def exitCallback(userName = None):
     logger.debug("exitCallback: {}".format(userName))
 
     try:
@@ -119,7 +119,7 @@ def exitCallback(userName):
         pass
 
 # 登录成功回调
-def loginCallback(userName):
+def loginCallback(userName = None):
     logger.debug("loginCallback: {}".format(userName))
     try:
         send_markdown_msg(f'[{userName}] LOGIN SUCCESS!')
