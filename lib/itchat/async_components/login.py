@@ -114,7 +114,7 @@ async def login(self, enableCmdQR=False, picDir=None, qrCallback=None, EventScan
     await self.show_mobile_login()
     self.get_contact(True)
     if hasattr(loginCallback, '__call__'):
-        r = await loginCallback(self.storageClass.userName)
+        r = await loginCallback(self.storageClass.userName if self.storageClass.userName else self.storageClass.nickName)
     else:
         utils.clear_screen()
         if os.path.exists(picDir or config.DEFAULT_QR):
