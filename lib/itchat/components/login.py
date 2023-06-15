@@ -83,7 +83,7 @@ def login(self, enableCmdQR=False, picDir=None, qrCallback=None,
     self.show_mobile_login()
     self.get_contact(True)
     if hasattr(loginCallback, '__call__'):
-        r = loginCallback(self.storageClass.userName if self.storageClass.userName else self.storageClass.nickName)
+        r = loginCallback(self.storageClass.nickName if self.storageClass.nickName else self.storageClass.userName)
     else:
         # utils.clear_screen()
         if os.path.exists(picDir or config.DEFAULT_QR):
