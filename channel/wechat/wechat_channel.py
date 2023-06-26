@@ -105,19 +105,6 @@ def qrCallback(uuid, status, qrcode):
         except Exception as e:
             pass
 
-
-# 退出回调
-def exitCallback(userName = None):
-    logger.debug("exitCallback: {}".format(userName))
-
-    try:
-        send_markdown_msg(f'[{userName}] LOG OUT!')
-        #退出后重新拉起登录
-        if conf().get("logout_restart") == True:
-            WechatChannel().startup()
-    except Exception as e:
-        logger.debug("[WX]exitCallback {} error: {}".format(userName, e))
-
 # 登录成功回调
 def loginCallback(userName = None):
     logger.debug("loginCallback: {}".format(userName))
@@ -134,6 +121,18 @@ class WechatChannel(ChatChannel):
         super().__init__()
         self.receivedMsgs = ExpiredDict(60 * 60 * 24)
 
+    # 退出回调
+    def exitCallback(self, userName = None):
+        logger.debug("exitCallback: {}".format(userName))
+
+        try:
+            send_markdown_msg(f'[{userName}] LOG OUT!')
+            #退出后重新拉起登录
+            if conf().get("logout_restart") == True:
+                self.startup()
+        except Exception as e:
+            logger.debug("[WX]exitCallback {} error: {}".format(userName, e))
+
     def startup(self):
         itchat.instance.receivingRetryCount = 600  # 修改断线超时时间
         # login by scan QRCode
@@ -145,7 +144,7 @@ class WechatChannel(ChatChannel):
             statusStorageDir=status_path,
             qrCallback=qrCallback,
             loginCallback=loginCallback,
-            exitCallback=exitCallback,
+            exitCallback=self.exitCallback,
         )
         self.user_id = itchat.instance.storageClass.userName
         self.name = itchat.instance.storageClass.nickName
