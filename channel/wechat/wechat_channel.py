@@ -116,7 +116,7 @@ def exitCallback(userName = None):
         if conf().get("logout_restart") == True:
             WechatChannel().startup()
     except Exception as e:
-        pass
+        logger.debug("[WX]exitCallback {} error: {}".format(userName, e))
 
 # 登录成功回调
 def loginCallback(userName = None):
