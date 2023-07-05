@@ -129,7 +129,9 @@ class WechatChannel(ChatChannel):
             send_markdown_msg(f'[{userName}] LOG OUT!')
             #退出后重新拉起登录
             if conf().get("logout_restart") == True:
-                self.startup()
+                #使用脚本先关闭再启动
+                os.system('./scripts/shutdown.sh')
+                os.system('./scripts/start.sh')
         except Exception as e:
             logger.debug("[WX]exitCallback {} error: {}".format(userName, e))
 
