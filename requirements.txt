@@ -6,3 +6,6 @@ requests>=2.28.2
 chardet>=5.1.0
 Pillow
 pre-commit
+
+--extra-index-url https://pypi.python.org/simple
+chatgpt_tool_hub==0.4.6
