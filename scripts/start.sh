@@ -11,6 +11,10 @@ if [ ! -f "${BASE_DIR}/nohup.out" ]; then
 echo "create file  ${BASE_DIR}/nohup.out"
 fi
 
+source ~/.bash_profile
+#open proxy
+proxy_on
+
 nohup python3 "${BASE_DIR}/app.py" & tail -f "${BASE_DIR}/nohup.out"
 
 echo "Chat_on_webchat is starting，you can check the ${BASE_DIR}/nohup.out"
