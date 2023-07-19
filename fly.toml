@@ -1,0 +1,10 @@
+# fly.toml app configuration file generated for emilygpt-wechat on 2023-07-16T16:44:34+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "emilygpt-wechat"
+primary_region = "hkg"
+
+[build]
+  builder = "paketobuildpacks/builder:base"
